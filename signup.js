@@ -22,7 +22,8 @@ signup.addEventListener('click',(e)=>{
             }
         )
         .then(res=>{
-            console.log(res);
+            // console.log(res.data);
+            alert(res.data.message);
         })
         .catch((err)=>console.log(err));
 });

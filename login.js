@@ -22,7 +22,9 @@ login.addEventListener('click',(e)=>{
         }
     })
     .then((res)=>{
-        console.log(res)
+        // console.log(res.data)
+        alert(res.data.message)
+        window.location.href="./expense.html"
     })
     .catch((err)=>{
         console.log(err)
