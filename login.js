@@ -5,6 +5,7 @@ const login=document.getElementById("login");
 
 
 login.addEventListener('click',(e)=>{
+    e.preventDefault();
     const  email=userEmail.value;
     const  password=passWord.value;
     
@@ -12,6 +13,18 @@ login.addEventListener('click',(e)=>{
         alert("All fields are mandatory!")
     }
 
-    console.log(email);
-    console.log(password);
+    axios({
+        method:'post',
+        url:`http://localhost:4000/users/login`,
+        data:{
+            email: email,
+            password: password
+        }
+    })
+    .then((res)=>{
+        console.log(res)
+    })
+    .catch((err)=>{
+        console.log(err)
+    })
 });
