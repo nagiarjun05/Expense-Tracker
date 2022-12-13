@@ -10,13 +10,14 @@ addExp.addEventListener('click',addExpense);
 expenseList.addEventListener('click', removeExpense);
 
 const getExpenses=function(){
+    const token=localStorage.getItem('token');
     axios({
         method:'get',
-        url:"http://localhost:4000/expenses/get-expenses"
+        url:"http://localhost:4000/expenses/get-expenses",
+        headers:{'Authorization':token}
     })
     .then(res=>{
         res.data.allExpenses.forEach(element => {
-            // console.log(element)
             var li = document.createElement('li');
             li.className='expenseDet';
             li.innerHTML=`${element.amount}-${element.description}-${element.category}-`;
@@ -42,6 +43,7 @@ getExpenses();
 
 function addExpense(e){
     e.preventDefault();
+    const token=localStorage.getItem('token');
     axios({
         method:'post',
         url:`http://localhost:4000/expenses/add-expense`,
@@ -49,7 +51,8 @@ function addExpense(e){
             amount:`${amount.value} `,
             description:`${description.value} `,
             category:`${category.value} `
-        }
+        },
+        headers:{'Authorization':token}
     }).then(res=>{
         while(expenseList.hasChildNodes()){
             expenseList.removeChild(expenseList.lastChild);
@@ -61,11 +64,13 @@ function addExpense(e){
 
 function removeExpense(e){
     e.preventDefault();
+    const token=localStorage.getItem('token');
     if(e.target.classList.contains('dlt')){
         console.log("delete")
         axios({
             method:'delete',
-            url:`http://localhost:4000/expenses/delete-expense/${e.target.parentElement.value}`,  
+            url:`http://localhost:4000/expenses/delete-expense/${e.target.parentElement.value}`,
+            headers:{'Authorization':token}
         })
         .then((res)=>{
             console.log(res)
