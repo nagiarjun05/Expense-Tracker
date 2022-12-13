@@ -39,7 +39,9 @@ const getExpenses=function(){
     }).catch(err=>console.log(err));
 };
 
-getExpenses();
+window.addEventListener('load', getExpenses())
+
+// getExpenses();
 
 function addExpense(e){
     e.preventDefault();
@@ -80,3 +82,60 @@ function removeExpense(e){
         
     }
 }
+
+
+document.getElementById('purchase').onclick= async function (e){
+    const token=localStorage.getItem('token');
+    const response= await axios({
+        method:'get',
+        url:'http://localhost:4000/purchase/premiummembership',
+        headers:{'Authorization':token}
+    })
+
+    var options={
+        "key":response.data.key_id,
+        "name":"Test Company",
+        "order_id":response.data.order_id,
+        "prefill":{
+            "name":"Test User",
+            "email":"test@xyz.com",
+            "contact":"9875641234"
+        },
+        "theme":{
+            "color":"#3399cc"
+        },
+        //success payment handler
+        "handler":function(response){
+            axios({
+                method:'post',
+                url:'http://localhost:4000/purchase/updatetransactionstatus',
+                data:{
+                    order_id:options.order_id,
+                    payment_id:response.razorpay_payment_id
+                },
+                headers:{'Authorization':token}
+            })
+            .then(()=>{
+                alert("You are a Premimum User now!")
+            })
+            .then(()=>{
+                alert("Something went wrong!")
+            })
+        }
+    }
+    const rzp1=new Razorpay(options);
+    rzp1.open();
+    e.preventDefault();
+
+    rzp1.on('payment.failed', function(response){
+        alert(response.error.code);
+        alert(response.error.description);
+        alert(response.error.source);
+        alert(response.error.step);
+        alert(response.error.reason);
+        alert(response.error.metadata.order_id);
+        alert(response.error.metadata.payment_id)
+    })
+};
+
+

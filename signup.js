@@ -24,6 +24,7 @@ signup.addEventListener('click',(e)=>{
         .then(res=>{
             // console.log(res.data);
             alert(res.data.message);
+            window.location.href="./login.html"
         })
         .catch((err)=>console.log(err));
 });
