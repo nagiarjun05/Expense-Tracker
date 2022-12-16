@@ -20,11 +20,7 @@ const getLeaderboard=function(){
         res.data.forEach((element)=>{
             var li = document.createElement('li');
             li.className='leaderboard-item';
-            if(element.total==undefined){
-                li.innerHTML=`Name - ${element.name}   Total Expense Amount - 0`;
-            }else{
-                li.innerHTML=`Name - ${element.name}   Total Expense Amount - ${element.total}`;
-            }
+            li.innerHTML=`Name - ${element.name},   Total Expense Amount - ${element.total}`;
             document.getElementById('leaderboard').appendChild(li);    
         })
     })
