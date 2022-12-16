@@ -1,7 +1,7 @@
 const userEmail=document.getElementById("user-email");
 const passWord=document.getElementById("password");
 const login=document.getElementById("login");
-const forgetPassword=getElementById("forget-password");
+const forgetPassword=document.getElementById("forgetpassword");
 
 login.addEventListener('click',(e)=>{
     e.preventDefault();
@@ -33,6 +33,7 @@ login.addEventListener('click',(e)=>{
 });
 
 
-// forgetPassword.addEventListener('click',()=>{
-
-// })
+forgetPassword.addEventListener('click',(e)=>{
+    e.preventDefault()
+    window.location.href="/forgetPassword.html"
+})
