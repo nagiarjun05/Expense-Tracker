@@ -33,13 +33,24 @@
     <div id="msg">
 
     </div>
-    <br>
-    <button id="show-leaderboard" style="display: none;">Show Leader Board</button>
-    <h2>EXPENSES:-</h2>
+    <div>
+        <button id="show-leaderboard" style="display: none;">Show Leader Board</button>
+        <br>
+        <button id="show-report" style="display: none;">Show Expense Report</button>
+    </div>
+    
+    <h2 id="expenses-h2">EXPENSES</h2>
     <ul id="exp-list"></ul>
-    <h2>LEADERBOARD:-</h2>
+    
+    <h2 id="leaderboard-h2" style="display: none;">LEADERBOARD</h2>
     <ul id="leaderboard" style="display: none;"></ul>
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    
+    <h2 id="report-h2" style="display: none;">REPORT</h2>
+    <ul id="report" style="display: none;">
+        <button id="download" style="display: none;">Download Expense Report</button>
+    </ul>
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jsonwebtoken/8.5.1/verify.js"></script> -->
 <script src="/expense.js"></script>

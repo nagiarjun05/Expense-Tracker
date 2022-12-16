@@ -3,13 +3,32 @@ var amount=document.getElementById("amount");
 var description=document.getElementById("description");
 var category=document.getElementById("expenseCat");
 var expenseList=document.getElementById("exp-list");
+const reportbtn=document.getElementById('report')
+
 const token=localStorage.getItem('token');
 
 addExp.addEventListener('click',addExpense);
 
 expenseList.addEventListener('click', removeExpense);
 
+const getReport=function(){
+    document.getElementById('report-h2').style.display='block';
+    document.getElementById('download').style.display='block'
+    console.log("clicked")
+}
+
+const report=function(){
+    if(document.getElementById('report').style.display='none'){
+        document.getElementById('report').style.display='block';
+    }
+    const reportdetails=document.getElementById('show-report')
+    document.getElementById('show-report').style.display='block';
+    
+    reportdetails.addEventListener('click',getReport)
+}
+
 const getLeaderboard=function(){
+    document.getElementById('leaderboard-h2').style.display='block';
     axios({
         method:'get',
         url:'http://localhost:4000/premium/get-leaderboard',
@@ -21,7 +40,7 @@ const getLeaderboard=function(){
             var li = document.createElement('li');
             li.className='leaderboard-item';
             li.innerHTML=`Name - ${element.name},   Total Expense Amount - ${element.total}`;
-            document.getElementById('leaderboard').appendChild(li);    
+            document.getElementById('leaderboard').appendChild(li);
         })
     })
     .catch((err)=>{
@@ -50,10 +69,13 @@ const getExpenses=function(){
         if (res.data.premiumuser==true){
             document.body.className='dark';
             document.getElementById('purchase').style.display='none';
+            document.getElementById('purchase').style.display='none';
             const premium=document.createElement('span');
             premium.textContent='You are a Premium User';
             document.getElementById('msg').appendChild(premium);
+            document.getElementById('show-report').style.display='block';
             leaderboard();
+            report();
         }
         res.data.allExpenses.forEach(element => {
             var li = document.createElement('li');
