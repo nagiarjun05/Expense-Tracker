@@ -6,6 +6,7 @@ var expenseList=document.getElementById("exp-list");
 const reportbtn=document.getElementById('report');
 const downloadBtn=document.getElementById('download');
 const pages=document.querySelector('.pagination');
+const perpage=document.getElementById('perpage');
 
 const token=localStorage.getItem('token');
 
@@ -13,11 +14,18 @@ addExp.addEventListener('click',addExpense);
 expenseList.addEventListener('click', removeExpense);
 downloadBtn.addEventListener('click', downloadFile);
 
+let rowperpage;
+perpage.addEventListener('input',(e)=>{
+    rowperpage=e.target.value;
+    const page=1;
+    getExpenses(page);
+})
+
 const getExpenses=function(page){
     axios({
         method:'get',
         url:`http://localhost:4000/expenses/get-expenses/?page=${page}`,
-        headers:{'Authorization':token}
+        headers:{'Authorization':token, 'rowperpage':rowperpage}
     })
     .then(res=>{
         if (res.data.premiumuser==true){
